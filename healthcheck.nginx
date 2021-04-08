@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+log "Checking if $(basename $0) is healthy ..."
+wget --output-document=- --quiet http://localhost/ | grep --quiet "Network UPS Tools"
+

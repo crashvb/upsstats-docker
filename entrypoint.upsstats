@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+# Configure: upsstats
+if [[ ! -e "$EP_RUN" ]] ; then
+	log "Configuring $(basename $0) for first run ..."
+
+	if [[ ! -e $NUT_CONFPATH/hosts.conf ]] ; then
+		log "Initializing data volume ..."
+		cp --no-clobber --recursive /usr/local/share/nut/config/* $NUT_CONFPATH/
+
+		# .htpasswd ...
+		log "Generating: .htpasswd ..."
+		install --group=root --mode=0644 --owner=root /dev/null $NUT_CONFPATH/.htpasswd
+		export UPSSTATS_USERS=${UPSSTATS_USERS:=admin}
+		for i in $(echo $UPSSTATS_USERS | sed --expression="s/,/ /g"); do
+			user=${i,,}
+			log "	$user"
+			generate_password "${user}"
+			var="${user^^}_PASSWORD"
+			echo "${user}:$(openssl passwd -apr1 ${!var})" >> $NUT_CONFPATH/.htpasswd
+		done
+
+		log "Adapting configuration files ..."
+		log "	hosts.conf"
+		cp --preserve $NUT_CONFPATH/hosts.conf $NUT_CONFPATH/hosts.conf.dist
+		echo "${UPSSTATS_HOSTS}" | envsubst >> $NUT_CONFPATH/hosts.conf
+
+		log "Applying ownership and permissions ..."
+		find $NUT_CONFPATH \( \! -user root -o \! -group nut \) -exec chown root:nut {} \;
+		find $NUT_CONFPATH -type d \! -perm -0750 -exec chmod 0750 {} \;
+		find $NUT_CONFPATH -type f \! -perm -0640 -exec chmod 0640 {} \;
+	else
+		log "Skipping data volume initialization ..."
+	fi
+fi
+

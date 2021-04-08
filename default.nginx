@@ -1,0 +1,17 @@
+server {
+	auth_basic "Network UPS Tools";
+	auth_basic_user_file ${NUT_CONFPATH}/.htpasswd; 
+	keepalive_timeout 60;
+	listen 80 default;
+	root /usr/share/nut/www/;
+
+	location / {
+		autoindex on;
+	}
+
+	location ~ \.(cgi|pl)$ {
+		include fastcgi_params;
+		fastcgi_pass unix:/var/run/fcgiwrap.sock;
+	}
+}
+

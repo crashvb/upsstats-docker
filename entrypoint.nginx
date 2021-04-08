@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+# Configure: nginx
+if [[ ! -e "$EP_RUN" ]] ; then
+	log "Configuring $(basename $0) for first run ..."
+
+	render_template /etc/nginx/sites-available/default /etc/nginx/sites-available/default
+fi
+
