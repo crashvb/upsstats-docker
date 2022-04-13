@@ -1,5 +1,10 @@
 # upsstats
 
+[![version)](https://img.shields.io/docker/v/crashvb/upsstats/latest)](https://hub.docker.com/repository/docker/crashvb/upsstats)
+[![image size](https://img.shields.io/docker/image-size/crashvb/upsstats/latest)](https://hub.docker.com/repository/docker/crashvb/upsstats)
+[![linting](https://img.shields.io/badge/linting-hadolint-yellow)](https://github.com/hadolint/hadolint)
+[![license](https://img.shields.io/github/license/crashvb/upsstats-docker.svg)](https://github.com/crashvb/upsstats-docker/blob/master/LICENSE.md)
+
 ## Overview
 
 This docker image contains [NUT](https://networkupstools.org/).
@@ -31,8 +36,8 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/upsstats` and pe
 
  | Variable | Default Value | Description |
  | -------- | ------------- | ----------- |
- | UPSSTATS_HOSTS | | The contents to be appended to `<nut_confpath>/hosts.conf`. |
- | UPSSTATS_USERS | admin | The list of users to be allowed access. This is not the same as the `userd.users` credentials used to access `upsset.cgi`. |
+ | UPSSTATS\_HOSTS | | The contents to be appended to `<nut_confpath>/hosts.conf`. |
+ | UPSSTATS\_USERS | admin | The list of users to be allowed access. This is not the same as the `userd.users` credentials used to access `upsset.cgi`. |
 
 2. Volume permissions are normalized.
 
