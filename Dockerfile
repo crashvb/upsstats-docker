@@ -25,13 +25,15 @@ RUN install --directory --group=root --mode=0775 --owner=root /usr/local/share/n
 	mv /usr/lib/cgi-bin /usr/share/nut/www/
 
 # Configure: nginx
-COPY default.nginx /etc/nginx/sites-available/default.template
+COPY default.nginx /etc/nginx/sites-available/default
 
 # Configure: supervisor
 RUN rm --force /etc/supervisor/conf.d/php.conf
 
 # Configure: entrypoint
-COPY entrypoint.nginx /etc/entrypoint.d/nginx
 COPY entrypoint.upsstats /etc/entrypoint.d/upstats
+
+# Configure: healthcheck
+RUN rm /etc/healthcheck.d/php
 
 VOLUME ${NUT_CONFPATH}

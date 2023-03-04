@@ -49,7 +49,6 @@ The embedded entrypoint script is located at `/etc/entrypoint.d/upsstats` and pe
 /
 ├─ etc/
 │  └─ entrypoint.d/
-│     ├─ nginx
 │     └─ upsstats
 ├─ run/
 │  └─ secrets/
