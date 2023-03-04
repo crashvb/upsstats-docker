@@ -1,10 +1,10 @@
-FROM crashvb/nginx:202302180021@sha256:5d51352cd78928288bc98ad1b2829f6a34e83c171b94656623eaa08616ef97fe
+FROM crashvb/nginx:202303040000@sha256:747c2bc7e0d1ce314c9b818e39be22ce27a444a8566ec068bd0612ad7163ef3e
 ARG org_opencontainers_image_created=undefined
 ARG org_opencontainers_image_revision=undefined
 LABEL \
 	org.opencontainers.image.authors="Richard Davis <crashvb@gmail.com>" \
-	org.opencontainers.image.base.digest="sha256:5d51352cd78928288bc98ad1b2829f6a34e83c171b94656623eaa08616ef97fe" \
-	org.opencontainers.image.base.name="crashvb/nginx:202302180021" \
+	org.opencontainers.image.base.digest="sha256:747c2bc7e0d1ce314c9b818e39be22ce27a444a8566ec068bd0612ad7163ef3e" \
+	org.opencontainers.image.base.name="crashvb/nginx:202303040000" \
 	org.opencontainers.image.created="${org_opencontainers_image_created}" \
 	org.opencontainers.image.description="Image containing upsstats." \
 	org.opencontainers.image.licenses="Apache-2.0" \
@@ -33,8 +33,5 @@ RUN rm --force /etc/supervisor/conf.d/php.conf
 # Configure: entrypoint
 COPY entrypoint.nginx /etc/entrypoint.d/nginx
 COPY entrypoint.upsstats /etc/entrypoint.d/upstats
-
-# Configure: healthcheck
-COPY healthcheck.nginx /etc/healthcheck.d/nginx
 
 VOLUME ${NUT_CONFPATH}

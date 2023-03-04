@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e -o pipefail
-
-log "Checking if $(basename "${0}") is healthy ..."
-wget --output-document=- --quiet http://localhost/ | grep --quiet "Network UPS Tools"
-
